@@ -1,16 +1,10 @@
-import { useState } from "react";
-import io from 'socket.io-client';
-import "./App.css";
-
-const socket = io.connect('http://localhost:3001');
+import { RouterProvider } from 'react-router-dom'
+import { APP_ROUTES } from './routes/routes';
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
-    <div>
-      <h2>sdf</h2>
-    </div>
+    <RouterProvider router={APP_ROUTES} />
   );
 }
 

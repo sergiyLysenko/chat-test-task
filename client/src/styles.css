@@ -1,0 +1,21 @@
+.message {
+  display: flex;
+  flex-direction: row;
+}
+
+.message-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px; 
+}
+
+#you {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+#other > .message-item {
+  display: flex;
+  flex-direction: row-reverse;
+}
