@@ -1,6 +1,16 @@
 import { Input, Text, Center, Button } from '@chakra-ui/react'
 import { useInputValue } from '../../hooks/useInputValue';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
+
+export const AuthGuard = ({ children }: { children: JSX.Element }) => {
+  const user = localStorage.getItem('nickName');
+
+  if (!user) {
+    return <Navigate to='/auth' />
+  }
+
+  return children
+}
 
 const AuthPage = () => {
   const [nickname, onChange] = useInputValue<HTMLInputElement>('');

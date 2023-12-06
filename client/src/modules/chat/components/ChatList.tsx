@@ -9,7 +9,7 @@ export const ChatList: FC<ChatListProps> = ({ rooms, socket, selectRoom }) => {
     socket.on(Responses.ADDED_ROOM, () => {
       socket.emit(Events.GET_ALL_ROOMS)
     });
-  }, [])
+  }, [socket])
 
   return (
     <Box px='5px' backgroundColor='red' h='100%' w='30%' maxW='30%'>
