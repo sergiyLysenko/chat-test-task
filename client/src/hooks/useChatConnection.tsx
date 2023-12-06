@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { io } from "socket.io-client";
 
 export const useChatConnection = () => {
@@ -6,15 +7,15 @@ export const useChatConnection = () => {
     reconnectionDelay: 1000,
   });
 
-  const reconnectConnection = () => {
+  const reconnectConnection = useCallback(() => {
     if (!socket.active) {
       socket.connect();
     }
-  }
+  }, [socket])
 
-  const disconnectConnection = () => {
+  const disconnectConnection = useCallback(() => {
     socket.disconnect();
-  }
+  }, [socket])
 
   return { socket, reconnectConnection, disconnectConnection }
 }

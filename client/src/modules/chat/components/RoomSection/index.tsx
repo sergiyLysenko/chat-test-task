@@ -30,35 +30,28 @@ export const RoomSection = ({ socket, room }: { socket: Socket<DefaultEventsMap,
   );
 
   useEffect(() => {
+    if (disconnected) {
+      setError('You are disconnected')
+    }
+  }, [disconnected]);
+
+  useEffect(() => {
     if (room) {
       socket.on(Responses.RECEIVE_MESSAGE, (data: MessageType) => {
         if (room.id === data.roomID) {
           setMessages(prev => [...prev, data]);
           setError(null);
         }
-
       });
-    }
-  }, [socket, room]);
-
-  useEffect(() => {
-    setMessages([]);
-  }, [room])
-
-  useEffect(() => {
-    if (disconnected) {
-      setError('You are disconnected')
+      setMessages([]);
     }
 
-  }, [disconnected])
-
-  useEffect(() => {
     socket.on(Responses.ERROR, (data: { error: { type: Events, message: string } }) => {
       setError(data.error.message);
     });
-  }, [socket, setError])
+  }, [socket, room, setError]);
 
-  const sendMessage = async () => {
+  const handleOnSendMessage = async () => {
     const messageData = {
       roomID: room.id,
       author: nickname,
@@ -87,7 +80,7 @@ export const RoomSection = ({ socket, room }: { socket: Socket<DefaultEventsMap,
             <Text h='24px'>{error}</Text>
             <Input _invalid={{ borderColor: 'red' }} isInvalid={!!error || disconnected} h='40px' onChange={handleOnChangeWrapper} value={value} />
           </Box>
-          <Button onClick={sendMessage} h='25px' w='25px'>Send</Button>
+          <Button onClick={handleOnSendMessage} h='25px' w='25px'>Send</Button>
         </Center>
       </Box>
     </Box>
