@@ -4,8 +4,6 @@ import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { ChatListProps, Events, RoomItem } from '../../modules/chat/types';
 
 export const ChatListItem = ({ room, socket, selectRoom }: { room: RoomItem, socket: Socket<DefaultEventsMap, DefaultEventsMap>, selectRoom: ChatListProps['selectRoom'] }) => {
-
-
   const joinRoom = (roomID: string) => {
     if (socket) {
       socket.emit(Events.JOIN_ROOM, { roomID })
